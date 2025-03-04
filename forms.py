@@ -17,4 +17,3 @@ class UserForm2(Form):
         validators.Email(message='Ingrese un correo valido')
     ])
 
-
