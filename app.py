@@ -32,7 +32,6 @@ def detalles():
         return render_template("detalles.html", id=id, nombre=nombre, apaterno=apaterno, email=email)
 
 
-
 if __name__ == '__main__':
     csrf.init_app(app)
     db.init_app(app)
