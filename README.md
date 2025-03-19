@@ -65,6 +65,32 @@ Solamente hay que hacer click en el boton de "Cerrar secion" para que se cierre 
 usuario ya no podra acceder a ninguna de las rutas, en automatico lo redirigira a la pagina de login
 
 ## Ejecucion
-Primero, cuando ejecutamos la aplicacion nos mandara a la pagina de `Login`
-```markdown
+1. Primero, cuando ejecutamos la aplicacion nos mandara a la pagina de `Login`
+
+![Página de inicio de sesión](static/img/sc1.png)
+
+2. Ingresamos las credenciales de cualquier usuario disponible que este en la base temporal, ya sea marco/1234 o user2/1234
+
 ![Página de inicio de sesión](static/img/sc.png)
+
+3. Una vez ingresadas las credenciales podremos entrar a la pagina principal
+![Página de inicio de sesión](static/img/sc2.png)
+
+4. en ella podremos ver las opciones de "Cerrar sesion"
+![Página de inicio de sesión](static/img/sc3.png)
+
+y la de ir a la pagina protegida
+![Página de inicio de sesión](static/img/sc5.png)
+
+5. damos click al enlace de `Ir a la pagina protegida` y nos mandara a la pagina que solo se puede acceder si estamos logeados
+![Página de inicio de sesión](static/img/sc6.png)
+
+6. despues desde la pagina protegida daremos click a `Volver al inicio`, y despues le daremos click a `Cerrar sesion`, y veremos como es que nos saca de nuevo al login
+![Página de inicio de sesión](static/img/sc1.png)
+
+---
+
+## Comprobacion
+ahora se muestra un video a mas detalle de su funcionamiento
+[Descargar video](static/img/sr.mov)
+
