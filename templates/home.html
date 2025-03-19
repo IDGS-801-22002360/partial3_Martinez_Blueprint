@@ -5,13 +5,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet">
     <title>Inicio</title>
 </head>
-<body>
-    <h1 class="text-3xl font-bold mb-4">Bienvenido</h1>
-    {% if user.is_authenticated %}
-        <p>Hola, {{ user.username }}. <a href="{{ url_for('logout') }}">Cerrar sesión</a></p>
-        <p><a href="{{ url_for('protected') }}">Ir a página protegida</a></p>
-    {% else %}
-        <p><a href="{{ url_for('login') }}">Iniciar sesión</a></p>
-    {% endif %}
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-4">Bienvenido</h1>
+        {% if user.is_authenticated %}
+            <p>Hola, {{ user.username }}.</p><br>
+            <a class="text-indigo-600 hover:underline" href="{{ url_for('logout') }}">Cerrar sesión</a>
+            <p><a class="text-indigo-600 hover:underline" href="{{ url_for('protected') }}">Ir a página protegida</a></p>
+        {% else %}
+            <p><a href="{{ url_for('login') }}">Iniciar sesión</a></p>
+        {% endif %}
+    </div>
 </body>
 </html>
