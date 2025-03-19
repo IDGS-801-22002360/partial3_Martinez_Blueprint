@@ -66,5 +66,4 @@ usuario ya no podra acceder a ninguna de las rutas, en automatico lo redirigira 
 
 ## Ejecucion
 Primero, cuando ejecutamos la aplicacion nos mandara a la pagina de `Login`
-```markdown
 ![Página de inicio de sesión](static/img/sc.png)
