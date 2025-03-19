@@ -1,43 +1,64 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask import flash
-from flask_wtf import CSRFProtect
-from flask import g
-from config import DevelopmentConfig
-import forms
-
-from models import db
-from models import Alumnos
+from flask import Flask, render_template, redirect, url_for, request, flash
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
-app.config.from_object(DevelopmentConfig)
-csrf = CSRFProtect(app)
+app.secret_key = 'llave_secreta'
 
-@app.route("/", methods=["GET", "POST"])
-@app.route("/index")
-def index():
-    create_form = forms.UserForm2(request.form)
-    alumno = Alumnos.query.all()                    # este es un query a la tabla alumnos
-    return render_template("index.html", form=create_form, alumnos=alumno)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'  # Redirige a esta vista si no está autenticado
 
-@app.route("/detalles", methods=["GET", "POST"])
-def detalles():
-    if request.method == "GET":
-        id = request.args.get('id')
-        alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
-        
-        nombre = alum1.nombre
-        apaterno = alum1.apaterno
-        email = alum1.email
-        
-        return render_template("detalles.html", id=id, nombre=nombre, apaterno=apaterno, email=email)
+# Clase de usuario (usando UserMixin para integrar con flask-login)
+class User(UserMixin):
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password
 
+#*  con el uso de una base de datos simulada vamos a poner a 2 usuarios
+users = {
+    'user1': User(id=1, username='marco', password='1234'),
+    'user2': User(id=2, username='user2', password='1234')
+}
+
+# Cargar usuario por ID
+@login_manager.user_loader
+def load_user(user_id):
+    for user in users.values():
+        if user.id == int(user_id):
+            return user
+    return None
+
+@app.route('/')
+@login_required
+def home():
+    return render_template('home.html', user=current_user)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = next((u for u in users.values() if u.username == username and u.password == password), None)
+        if user:
+            login_user(user)
+            flash('Inicio de sesión exitoso.', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Credenciales inválidas.', 'error')
+    return render_template('login.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('Cierre de sesión exitoso.', 'success')
+    return redirect(url_for('login'))
+
+@app.route('/protected')
+@login_required
+def protected():
+    return render_template('protected.html', user=current_user)
 
 if __name__ == '__main__':
-    csrf.init_app(app)
-    db.init_app(app)
-    
-    with app.app_context():
-        db.create_all()
-    app.run()
-
-
+    app.run(debug=True)
