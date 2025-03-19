@@ -13,6 +13,7 @@ Principales características y funcionalidades de Flask-Login
 - **Protección de rutas:** Permite restringir el acceso a ciertas páginas solo para usuarios autenticados.
 - **Compatibilidad con múltiples métodos de autenticación:** Se puede combinar con bases de datos, OAuth y otros sistemas de autenticación.
 
+---
 
 ## Descripción
 
@@ -65,12 +66,7 @@ Solamente hay que hacer click en el boton de "Cerrar secion" para que se cierre 
 usuario ya no podra acceder a ninguna de las rutas, en automatico lo redirigira a la pagina de login
 
 ## Ejecucion
-1. Primero, cuando ejecutamos la aplicacion nos mandara a la pagina de `Login`
-
-![Página de inicio de sesión](static/img/sc1.png)
-
-2. Ingresamos las credenciales de cualquier usuario disponible que este en la base temporal, ya sea marco/1234 o user2/1234
-
+Primero, cuando ejecutamos la aplicacion nos mandara a la pagina de `Login`
 ![Página de inicio de sesión](static/img/sc.png)
 
 3. Una vez ingresadas las credenciales podremos entrar a la pagina principal
