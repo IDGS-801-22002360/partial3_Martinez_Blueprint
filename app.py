@@ -6,9 +6,9 @@ app.secret_key = 'llave_secreta'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'  # Redirige a esta vista si no está autenticado
+login_manager.login_view = 'login' #* nos va a redirigir a el login si no estamos logueados
 
-# Clase de usuario (usando UserMixin para integrar con flask-login)
+#* Clase de usuario (usando UserMixin para integrar con flask-login)
 class User(UserMixin):
     def __init__(self, id, username, password):
         self.id = id
