@@ -66,7 +66,10 @@ Solamente hay que hacer click en el boton de "Cerrar secion" para que se cierre 
 usuario ya no podra acceder a ninguna de las rutas, en automatico lo redirigira a la pagina de login
 
 ## Ejecucion
-Primero, cuando ejecutamos la aplicacion nos mandara a la pagina de `Login`
+1. Primero, cuando ejecutamos la aplicacion nos mandara a la pagina de `Login`
+![Página de inicio de sesión](static/img/sc1.png)
+
+2. Despues ingresamos las credenciales del usuario
 ![Página de inicio de sesión](static/img/sc.png)
 
 3. Una vez ingresadas las credenciales podremos entrar a la pagina principal

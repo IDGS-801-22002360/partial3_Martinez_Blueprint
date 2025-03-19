@@ -15,13 +15,12 @@ class User(UserMixin):
         self.username = username
         self.password = password
 
-#*  con el uso de una base de datos simulada vamos a poner a 2 usuarios
+#*  con el uso de una base de datos simulada vamos a poner a los usuarios
 users = {
     'user1': User(id=1, username='marco', password='1234'),
     'user2': User(id=2, username='user2', password='1234')
 }
 
-# Cargar usuario por ID
 @login_manager.user_loader
 def load_user(user_id):
     for user in users.values():
