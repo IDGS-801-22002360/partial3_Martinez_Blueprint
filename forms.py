@@ -2,6 +2,7 @@ from wtforms import Form, StringField, validators, RadioField, SelectMultipleFie
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
 
+<<<<<<< HEAD
 
 
 class OrdenForm(Form):
@@ -27,3 +28,5 @@ class LoginForm(FlaskForm):
     username = StringField('Usuario', validators=[DataRequired()])
     password = PasswordField('Contraseña', validators=[DataRequired()])
     submit = SubmitField('Iniciar sesión')
+=======
+>>>>>>> 891be2b (03/Mar/2025 - Detalles)

@@ -25,6 +25,29 @@ El proyecto incluye:
 
 ---
 
+ ## Instalación
+ 
+ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
+ 
+ 1. Clona este repositorio:
+    ```bash
+    git clone https://github.com/IDGS-801-22002360/partial3_Martinez.git
+    cd flask-login
+ 
+ 2. Crea un entorno virtual e instala las dependencias
+     ```bash
+     python3 -m venv venv
+ - para **Windows**
+     ```bash
+     Source venv/Scripts/activate
+     pip install -r requirements.txt
+     
+ - Para **MacOs**
+     ```bash  
+     Source venv/bin/activate
+     pip install -r requirements.txt
+ ___
+
 
 ## Funcionalidades principales:
 **Inicio de sesión:**

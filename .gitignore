@@ -1,4 +1,8 @@
 env
+<<<<<<< HEAD
 .env
 .vscode
 __pycache__
+=======
+.env
+>>>>>>> 891be2b (03/Mar/2025 - Detalles)
