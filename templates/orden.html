@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+{% block orden %}
+
+{% import "_macros.html" as macro %}
+
+<form action="/" method="POST" class="needs-validation" novalidate>
+
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div class="row">
+        <div class="col-4">
+            {{ macro.orden(form.nombre) }}
+        </div>
+        <div class="col-4">
+            {{ macro.orden(form.direccion) }}
+        </div>
+        <div class="col-4">
+            {{ macro.orden(form.telefono) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            {{ macro.radio(form.tamanio) }}
+        </div>
+        <div class="col-4">
+            {{ macro.checkbox(form.ingredientes) }}
+        </div>
+        <div class="col-4">
+            {{ macro.orden(form.numero)}}
+        </div>
+    </div>
+    <button type="submit" class="col-12 btn btn-primary mt-3 rounded-1"><b>Agregar</b></button>
+</form>
+
+{% endblock %}
+
+
+
+

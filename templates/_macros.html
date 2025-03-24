@@ -1,0 +1,76 @@
+<!--
+    * para establecer macros en Jinja2, se utiliza la palabra clave macro
+    * seguida de un nombre de la macro y una lista de atributos o argumentos
+-->
+<!--
+    * ahora, creamos una etiqueta html con un input
+    * el input tiene en los atributos las variables de la macro que declaramos anteriormente
+-->
+{% macro datos(name, placeholder, type="text") %}
+    <label for="name" class="form-label">{{name}}:</label>
+    <p>
+        <input name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" class="form-control rounded-2 shadow border-0">
+    </p>
+{% endmacro %}
+
+{% macro orden(field) %}
+<div class="mb-3">
+    <label for="{{field.id}}" class="form-label">{{field.label}}</label>
+    {{field(class_='form-control rounded-2 shadow border-0') | safe}}
+    {% if field.errors %}
+        <div class="invalid-feedback d-block">
+            <ul class="list-unstyled mb-0">
+                {% for error in field.errors %}
+                    <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro radio(field) %}
+<div class="mb-3">
+    <label class="form-label">{{field.label}}</label>
+    <div>
+        {% for subfield in field %}
+            <div class="form-check form-check-inline">
+                {{ subfield(class_='form-check-input') }}
+                <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label }}</label>
+            </div>
+        {% endfor %}
+    </div>
+    {% if field.errors %}
+        <div class="invalid-feedback d-block">
+            <ul class="list-unstyled mb-0">
+                {% for error in field.errors %}
+                    <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro checkbox(field) %}
+<div class="mb-3">
+    <label class="form-label">{{field.label}}</label>
+    <div>
+        {% for subfield in field %}
+            <div class="form-check">
+                {{ subfield(class_='form-check-input') }}
+                <label class="form-check-label" for="{{ subfield.id }}">{{ subfield.label }}</label>
+            </div>
+        {% endfor %}
+    </div>
+    {% if field.errors %}
+        <div class="invalid-feedback d-block">
+            <ul class="list-unstyled mb-0">
+                {% for error in field.errors %}
+                    <li>{{error}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+{% endmacro %}

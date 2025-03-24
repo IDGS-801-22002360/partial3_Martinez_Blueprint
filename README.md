@@ -25,41 +25,16 @@ El proyecto incluye:
 
 ---
 
-## Instalación
-
-Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
-
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/IDGS-801-22002360/partial3_Martinez.git
-   cd flask-login
-
-2. Crea un entorno virtual e instala las dependencias
-    ```bash
-    python3 -m venv venv
-- para **Windows**
-    ```bash
-    Source venv/Scripts/activate
-    pip install -r requirements.txt
-    
-- Para **MacOs**
-    ```bash  
-    Source venv/bin/activate
-    pip install -r requirements.txt
-___
 
 ## Funcionalidades principales:
 **Inicio de sesión:**
 Ingresa con las credenciales de usuario predefinidas
 Usuario: marco, Contraseña: 1234
-Usuario: user2, Contraseña: 1234
 
 Si las credenciales son correctas, serás redirigido a la página de bienvenida
 
 **Rutas protegidas:**
-
-Las rutas como ***/home*** y ***/protected*** solo son accesibles si el usuario está autenticado.
-Si intentas acceder a estas rutas sin iniciar sesión, serás redirigido automáticamente a la página de inicio de sesión.
+la aplicacion tiene como rutas protegidas el index, que es donde se hacen las ordenes, de esta forma no se puede acceder si no se esta logeado
 
 **Cierre de sesión:**
 Solamente hay que hacer click en el boton de "Cerrar secion" para que se cierre la secion del usuario, y una vez hecho el
@@ -70,22 +45,22 @@ usuario ya no podra acceder a ninguna de las rutas, en automatico lo redirigira 
 ![Página de inicio de sesión](static/img/sc1.png)
 
 2. Despues ingresamos las credenciales del usuario
-![Página de inicio de sesión](static/img/sc.png)
+![Página de inicio de sesión](static/img/sc2.png)
 
 3. Una vez ingresadas las credenciales podremos entrar a la pagina principal
-![Página de inicio de sesión](static/img/sc2.png)
+![Página de inicio de sesión](static/img/sc3.png)
 
 4. en ella podremos ver las opciones de "Cerrar sesion"
 ![Página de inicio de sesión](static/img/sc3.png)
 
-y la de ir a la pagina protegida
-![Página de inicio de sesión](static/img/sc5.png)
+5. ya dentro podremos usar la aplicacion como es debido, podremos guardar ordenes, eliminar o hacer el corte de estas
+![Página de inicio de sesión](static/img/sc3.png)
 
-5. damos click al enlace de `Ir a la pagina protegida` y nos mandara a la pagina que solo se puede acceder si estamos logeados
-![Página de inicio de sesión](static/img/sc6.png)
+6. ahora veremos la ruta, como se dijo en los puntos anteriores el metodo para guardar esta en el index
+![Página de inicio de sesión](static/img/sc4.png)
 
-6. despues desde la pagina protegida daremos click a `Volver al inicio`, y despues le daremos click a `Cerrar sesion`, y veremos como es que nos saca de nuevo al login
-![Página de inicio de sesión](static/img/sc1.png)
+7. si cerramos sesion podremos ver que nis vuelve a redirigir al login, pero para ver que funciona el Flask-Login, podemos tratar de ir a la ruta index e intentar entrar, podremos ver que no nos deja y en su defecto se vera una redireccion el login
+![Página de inicio de sesión](static/img/sc7.png)
 
 ---
 
