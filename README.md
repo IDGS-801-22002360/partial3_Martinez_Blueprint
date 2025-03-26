@@ -1,93 +1,110 @@
-# Flask-Login
+README: Blueprints en Flask y su Implementación en la Arquitectura MVC
 
-Este repositorio contiene un ejemplo práctico de cómo implementar autenticación de usuarios en una aplicación Flask utilizando la extensión `flask-login`. Además, se utiliza **Tailwind CSS** y **Flowbite** para diseñar una interfaz de usuario moderna y responsiva.
+1. Introducción
 
----
+Los Blueprints en Flask son una forma de organizar y estructurar aplicaciones grandes en módulos reutilizables y mantenibles. Permiten dividir la aplicación en componentes independientes, lo que facilita la escalabilidad y la modularidad.
 
-## Que es Flask-Login?
-Flask-Login es una extensión de Flask que facilita la administración de sesiones de usuario y la autenticación en aplicaciones web. Su propósito principal es manejar el inicio y cierre de sesión, recordar a los usuarios en diferentes sesiones y restringir el acceso a ciertas partes de la aplicación según el estado de autenticación del usuario.
-Principales características y funcionalidades de Flask-Login
-- **Gestión de sesiones:** Mantiene a los usuarios conectados entre diferentes solicitudes.
-- **Autenticación de usuarios:** Permite verificar si un usuario ha iniciado sesión o no.
-- **Recuperación de usuarios:** Carga automáticamente la información del usuario autenticado.
-- **Protección de rutas:** Permite restringir el acceso a ciertas páginas solo para usuarios autenticados.
-- **Compatibilidad con múltiples métodos de autenticación:** Se puede combinar con bases de datos, OAuth y otros sistemas de autenticación.
+2. Propósito de los Blueprints en la Arquitectura
+- El propósito principal de los Blueprints es modularizar la aplicación Flask, permitiendo:
+- Separar funcionalidades en módulos independientes.
+- Reutilizar código en diferentes proyectos.
+- Facilitar la colaboración en equipos grandes.
+- Mejorar la mantenibilidad y escalabilidad de la aplicación.
 
----
+3. Implementación de Blueprints en Flask
 
-## Descripción
+Para implementar Blueprints en Flask, se siguen estos pasos:
 
-El proyecto incluye:
-- Un sistema de autenticación con `flask-login`.
-- Rutas protegidas que solo son accesibles para usuarios autenticados.
-- Un diseño atractivo y responsivo utilizando **Tailwind CSS** y **Flowbite**.
-- Un flujo de inicio de sesión, cierre de sesión y acceso a páginas protegidas.
+3.1 Creación de un Blueprint
 
----
+Dentro del directorio de la aplicación, se define un Blueprint en un módulo separado.
 
- ## Instalación
- 
- Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
- 
- 1. Clona este repositorio:
-    ```bash
-    git clone https://github.com/IDGS-801-22002360/partial3_Martinez.git
-    cd flask-login
- 
- 2. Crea un entorno virtual e instala las dependencias
-     ```bash
-     python3 -m venv venv
- - para **Windows**
-     ```bash
-     Source venv/Scripts/activate
-     pip install -r requirements.txt
-     
- - Para **MacOs**
-     ```bash  
-     Source venv/bin/activate
-     pip install -r requirements.txt
- ___
+    from flask import Blueprint, render_template
 
+# Crear el Blueprint
+    main_bp = Blueprint('main', __name__)
+    @main_bp.route('/')
+    def index():
+        return render_template('index.html')
 
-## Funcionalidades principales:
-**Inicio de sesión:**
-Ingresa con las credenciales de usuario predefinidas
-Usuario: marco, Contraseña: 1234
+3.2 Registro del Blueprint en la Aplicación Principal
 
-Si las credenciales son correctas, serás redirigido a la página de bienvenida
+En el archivo principal de la aplicación (por ejemplo, app.py), se debe registrar el Blueprint:
 
-**Rutas protegidas:**
-la aplicacion tiene como rutas protegidas el index, que es donde se hacen las ordenes, de esta forma no se puede acceder si no se esta logeado
+    from flask import Flask
+    from views.main import main_bp  # Importamos el Blueprint
 
-**Cierre de sesión:**
-Solamente hay que hacer click en el boton de "Cerrar secion" para que se cierre la secion del usuario, y una vez hecho el
-usuario ya no podra acceder a ninguna de las rutas, en automatico lo redirigira a la pagina de login
+    app = Flask(__name__)
+    app.register_blueprint(main_bp)
+    if __name__ == '__main__':
+        app.run(debug=True)
 
-## Ejecucion
-1. Primero, cuando ejecutamos la aplicacion nos mandara a la pagina de `Login`
-![Página de inicio de sesión](static/img/sc1.png)
+4. Diseño de la Arquitectura MVC con Blueprints
 
-2. Despues ingresamos las credenciales del usuario
-![Página de inicio de sesión](static/img/sc2.png)
+Para implementar MVC con Blueprints en Flask, se organiza la aplicación en los siguientes componentes:
 
-3. Una vez ingresadas las credenciales podremos entrar a la pagina principal
-![Página de inicio de sesión](static/img/sc3.png)
+4.1 ModelO
 
-4. en ella podremos ver las opciones de "Cerrar sesion"
-![Página de inicio de sesión](static/img/sc3.png)
+Representa la capa de datos y la lógica de negocio. Se define en un archivo dentro de models/.
 
-5. ya dentro podremos usar la aplicacion como es debido, podremos guardar ordenes, eliminar o hacer el corte de estas
-![Página de inicio de sesión](static/img/sc3.png)
+Ejemplo: models/user.py
 
-6. ahora veremos la ruta, como se dijo en los puntos anteriores el metodo para guardar esta en el index
-![Página de inicio de sesión](static/img/sc4.png)
+    from flask_sqlalchemy import SQLAlchemy
 
-7. si cerramos sesion podremos ver que nis vuelve a redirigir al login, pero para ver que funciona el Flask-Login, podemos tratar de ir a la ruta index e intentar entrar, podremos ver que no nos deja y en su defecto se vera una redireccion el login
-![Página de inicio de sesión](static/img/sc7.png)
+    db = SQLAlchemy()
 
----
+    class User(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        username = db.Column(db.String(80), unique=True, nullable=False)
 
-## Comprobacion
-ahora se muestra un video a mas detalle de su funcionamiento
-[Descargar video](static/img/sr.mov)
+4.2 Vista (View)
 
+Define las rutas y la interacción con el usuario. Se organiza en directorios dentro de views/ usando Blueprints.
+
+Ejemplo: views/auth.py
+
+    from flask import Blueprint, render_template
+
+    auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+    @auth_bp.route('/login')
+    def login():
+        return render_template('login.html')
+
+4.3 Controlador (Controller)
+
+Es la capa que interactúa entre el modelo y la vista. Se encuentra dentro de los Blueprints en controllers/.
+
+Ejemplo: controllers/auth_controller.py
+
+    from flask import Blueprint, request, redirect, url_for
+    from models.user import User, db
+
+    auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+    @auth_bp.route('/register', methods=['POST'])
+    def register():
+        username = request.form['username']
+        user = User(username=username)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('auth.login'))
+
+4.4 Configuración de la Aplicación
+
+El archivo app.py se encarga de inicializar la aplicación y registrar los Blueprints.
+
+    from flask import Flask
+    from models.user import db
+    from views.auth import auth_bp
+    from views.main import main_bp
+
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+    db.init_app(app)
+    
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(main_bp)
+
+    if __name__ == '__main__':
+        app.run(debug=True)
